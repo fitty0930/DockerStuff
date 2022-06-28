@@ -8,8 +8,9 @@ RUN apt-get update && apt-get install -y \
         libxml2-dev \
         libpq-dev \
         libzip-dev \
+        libpng-dev \
         zip \
-        && docker-php-ext-install pdo pdo_mysql zip intl xmlrpc soap opcache \
+        && docker-php-ext-install pdo pdo_mysql zip gd intl xmlrpc soap opcache \
         && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
 
 
