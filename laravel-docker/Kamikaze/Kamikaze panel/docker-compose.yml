@@ -1,0 +1,43 @@
+version: '3'
+services:
+  app:
+    image: kamikazepanel-img
+    container_name: kamikazepanel-container
+    build: ./
+    restart: always
+    ports:
+      - "116:80"
+    networks:
+      - kaminet
+    volumes:
+      - .:/var/www/html
+  myadmin:
+    image: phpmyadmin
+    container_name: kamikazepanel-phpmyadmin
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - "112:80"
+    networks:
+      - kaminet
+    links:
+      - mysql:db
+  mysql:
+    container_name: kamikazepanel-mysql
+    image: mysql:5.6
+    restart: always
+    ports:
+      - 3315:3306
+    networks:
+      - kaminet
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      MYSQL_HOST: 0.0.0.0
+      MYSQL_ROOT_PASSWORD: Rut123.
+volumes:
+    mysql:
+      driver: "local"
+networks:
+  kaminet: null
